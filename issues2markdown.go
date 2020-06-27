@@ -73,6 +73,7 @@ type BitbucketIssues struct {
 
 func main() {
 	fileArg := flag.String("file", "./db-1.0.json", "The exported issues list to be rendered")
+	allArg := flag.Bool("all", false, "Flag indicating whether resolved issues should be rendered")
 	flag.Parse()
 
 	if *fileArg == "" {
@@ -104,7 +105,7 @@ func main() {
 	})
 
 	for _, element := range issuesType.Issues {
-		if element.Status == "resolved" {
+		if element.Status == "resolved" && !*allArg {
 			continue
 		}
 
